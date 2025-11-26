@@ -5,7 +5,7 @@
 >
 > This library has not yet been exhaustively tested in production environments and may be missing some features you'd expect in a stable release. As we continue development, there may be breaking changes that require updates to your code.
 >
-> **We'd love your feedback!** Please share any suggestions, bug reports, feature requests, or general thoughts by [filing an issue](https://www.github.com/stainless-sdks/sdk-abu-api-php/issues/new).
+> **We'd love your feedback!** Please share any suggestions, bug reports, feature requests, or general thoughts by [filing an issue](https://www.github.com/asmshaon/php-sdk-laravel-api/issues/new).
 
 The SDK Abu API PHP library provides convenient access to the SDK Abu API REST API from any PHP 8.1.0+ application.
 
@@ -17,12 +17,14 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 To use this package, install via Composer by adding the following to your application's `composer.json`:
 
+<!-- x-release-please-start-version -->
+
 ```json
 {
   "repositories": [
     {
       "type": "vcs",
-      "url": "git@github.com:stainless-sdks/sdk-abu-api-php.git"
+      "url": "git@github.com:asmshaon/php-sdk-laravel-api.git"
     }
   ],
   "require": {
@@ -30,6 +32,8 @@ To use this package, install via Composer by adding the following to your applic
   }
 }
 ```
+
+<!-- x-release-please-end -->
 
 ## Usage
 
@@ -171,4 +175,4 @@ PHP 8.1.0 or higher.
 
 ## Contributing
 
-See [the contributing documentation](https://github.com/stainless-sdks/sdk-abu-api-php/tree/main/CONTRIBUTING.md).
+See [the contributing documentation](https://github.com/asmshaon/php-sdk-laravel-api/tree/main/CONTRIBUTING.md).
