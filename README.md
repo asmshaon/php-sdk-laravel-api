@@ -45,7 +45,7 @@ Parameters with a default value must be set by name.
 
 use SDKAbuAPI\Client;
 
-$client = new Client(apiKey: getenv("SDK_ABU_API_API_KEY") ?: "My API Key");
+$client = new Client(apiKey: getenv('SDK_ABU_API_API_KEY') ?: 'My API Key');
 
 $posts = $client->posts->list([]);
 
@@ -136,9 +136,9 @@ use SDKAbuAPI\RequestOptions;
 $posts = $client->posts->list(
   [],
   RequestOptions::with(
-    extraQueryParams: ["my_query_parameter" => "value"],
-    extraBodyParams: ["my_body_parameter" => "value"],
-    extraHeaders: ["my-header" => "value"],
+    extraQueryParams: ['my_query_parameter' => 'value'],
+    extraBodyParams: ['my_body_parameter' => 'value'],
+    extraHeaders: ['my-header' => 'value'],
   ),
 );
 ```
