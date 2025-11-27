@@ -6,6 +6,7 @@ use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use SDKAbuAPI\Client;
+use SDKAbuAPI\Posts\Post;
 use Tests\UnsupportedMockTests;
 
 /**
@@ -39,7 +40,8 @@ final class PostsTest extends TestCase
             'user_id' => 1,
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Post::class, $result);
     }
 
     #[Test]
@@ -55,7 +57,8 @@ final class PostsTest extends TestCase
             'user_id' => 1,
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Post::class, $result);
     }
 
     #[Test]
@@ -67,7 +70,8 @@ final class PostsTest extends TestCase
 
         $result = $this->client->posts->retrieve(0);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Post::class, $result);
     }
 
     #[Test]
@@ -79,7 +83,8 @@ final class PostsTest extends TestCase
 
         $result = $this->client->posts->update(0, []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Post::class, $result);
     }
 
     #[Test]
@@ -91,7 +96,8 @@ final class PostsTest extends TestCase
 
         $result = $this->client->posts->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertIsList($result);
     }
 
     #[Test]
@@ -103,7 +109,8 @@ final class PostsTest extends TestCase
 
         $result = $this->client->posts->delete(0);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -115,6 +122,7 @@ final class PostsTest extends TestCase
 
         $result = $this->client->posts->partialUpdate(0, []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Post::class, $result);
     }
 }
