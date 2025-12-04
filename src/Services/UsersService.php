@@ -41,7 +41,7 @@ final class UsersService implements UsersContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'users',
@@ -62,7 +62,7 @@ final class UsersService implements UsersContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): User {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['users/%1$s', $id],
@@ -92,7 +92,7 @@ final class UsersService implements UsersContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s', $id],
@@ -113,7 +113,7 @@ final class UsersService implements UsersContract
      */
     public function list(?RequestOptions $requestOptions = null): array
     {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'users',
@@ -133,7 +133,7 @@ final class UsersService implements UsersContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['users/%1$s', $id],
@@ -161,7 +161,7 @@ final class UsersService implements UsersContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'patch',
             path: ['users/%1$s', $id],

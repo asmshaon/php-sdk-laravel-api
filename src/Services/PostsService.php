@@ -42,7 +42,7 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'posts',
@@ -63,7 +63,7 @@ final class PostsService implements PostsContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): Post {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['posts/%1$s', $id],
@@ -93,7 +93,7 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['posts/%1$s', $id],
@@ -123,7 +123,7 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'posts',
@@ -144,7 +144,7 @@ final class PostsService implements PostsContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['posts/%1$s', $id],
@@ -172,7 +172,7 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'patch',
             path: ['posts/%1$s', $id],
