@@ -50,9 +50,9 @@ final class UserUpdateParams implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $email && $obj->email = $email;
-        null !== $name && $obj->name = $name;
-        null !== $password && $obj->password = $password;
+        null !== $email && $obj['email'] = $email;
+        null !== $name && $obj['name'] = $name;
+        null !== $password && $obj['password'] = $password;
 
         return $obj;
     }
@@ -60,7 +60,7 @@ final class UserUpdateParams implements BaseModel
     public function withEmail(string $email): self
     {
         $obj = clone $this;
-        $obj->email = $email;
+        $obj['email'] = $email;
 
         return $obj;
     }
@@ -68,7 +68,7 @@ final class UserUpdateParams implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -76,7 +76,7 @@ final class UserUpdateParams implements BaseModel
     public function withPassword(string $password): self
     {
         $obj = clone $this;
-        $obj->password = $password;
+        $obj['password'] = $password;
 
         return $obj;
     }

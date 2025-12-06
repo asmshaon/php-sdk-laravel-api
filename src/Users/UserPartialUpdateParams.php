@@ -44,8 +44,8 @@ final class UserPartialUpdateParams implements BaseModel
     {
         $obj = new self;
 
-        null !== $email && $obj->email = $email;
-        null !== $name && $obj->name = $name;
+        null !== $email && $obj['email'] = $email;
+        null !== $name && $obj['name'] = $name;
 
         return $obj;
     }
@@ -53,7 +53,7 @@ final class UserPartialUpdateParams implements BaseModel
     public function withEmail(string $email): self
     {
         $obj = clone $this;
-        $obj->email = $email;
+        $obj['email'] = $email;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class UserPartialUpdateParams implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }

@@ -50,9 +50,9 @@ final class PostUpdateParams implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $content && $obj->content = $content;
-        null !== $title && $obj->title = $title;
-        null !== $user_id && $obj->user_id = $user_id;
+        null !== $content && $obj['content'] = $content;
+        null !== $title && $obj['title'] = $title;
+        null !== $user_id && $obj['user_id'] = $user_id;
 
         return $obj;
     }
@@ -60,7 +60,7 @@ final class PostUpdateParams implements BaseModel
     public function withContent(string $content): self
     {
         $obj = clone $this;
-        $obj->content = $content;
+        $obj['content'] = $content;
 
         return $obj;
     }
@@ -68,7 +68,7 @@ final class PostUpdateParams implements BaseModel
     public function withTitle(string $title): self
     {
         $obj = clone $this;
-        $obj->title = $title;
+        $obj['title'] = $title;
 
         return $obj;
     }
@@ -76,7 +76,7 @@ final class PostUpdateParams implements BaseModel
     public function withUserID(int $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }
