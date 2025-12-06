@@ -64,9 +64,9 @@ final class PostCreateParams implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->content = $content;
-        $obj->title = $title;
-        $obj->user_id = $user_id;
+        $obj['content'] = $content;
+        $obj['title'] = $title;
+        $obj['user_id'] = $user_id;
 
         return $obj;
     }
@@ -74,7 +74,7 @@ final class PostCreateParams implements BaseModel
     public function withContent(string $content): self
     {
         $obj = clone $this;
-        $obj->content = $content;
+        $obj['content'] = $content;
 
         return $obj;
     }
@@ -82,7 +82,7 @@ final class PostCreateParams implements BaseModel
     public function withTitle(string $title): self
     {
         $obj = clone $this;
-        $obj->title = $title;
+        $obj['title'] = $title;
 
         return $obj;
     }
@@ -90,7 +90,7 @@ final class PostCreateParams implements BaseModel
     public function withUserID(int $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }

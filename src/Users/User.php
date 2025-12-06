@@ -79,13 +79,13 @@ final class User implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->email = $email;
-        $obj->name = $name;
+        $obj['id'] = $id;
+        $obj['email'] = $email;
+        $obj['name'] = $name;
 
-        null !== $created_at && $obj->created_at = $created_at;
-        null !== $email_verified_at && $obj->email_verified_at = $email_verified_at;
-        null !== $updated_at && $obj->updated_at = $updated_at;
+        null !== $created_at && $obj['created_at'] = $created_at;
+        null !== $email_verified_at && $obj['email_verified_at'] = $email_verified_at;
+        null !== $updated_at && $obj['updated_at'] = $updated_at;
 
         return $obj;
     }
@@ -93,7 +93,7 @@ final class User implements BaseModel, ResponseConverter
     public function withID(int $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -101,7 +101,7 @@ final class User implements BaseModel, ResponseConverter
     public function withEmail(string $email): self
     {
         $obj = clone $this;
-        $obj->email = $email;
+        $obj['email'] = $email;
 
         return $obj;
     }
@@ -109,7 +109,7 @@ final class User implements BaseModel, ResponseConverter
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -117,7 +117,7 @@ final class User implements BaseModel, ResponseConverter
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
         $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $obj['created_at'] = $createdAt;
 
         return $obj;
     }
@@ -126,7 +126,7 @@ final class User implements BaseModel, ResponseConverter
         ?\DateTimeInterface $emailVerifiedAt
     ): self {
         $obj = clone $this;
-        $obj->email_verified_at = $emailVerifiedAt;
+        $obj['email_verified_at'] = $emailVerifiedAt;
 
         return $obj;
     }
@@ -134,7 +134,7 @@ final class User implements BaseModel, ResponseConverter
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updated_at = $updatedAt;
+        $obj['updated_at'] = $updatedAt;
 
         return $obj;
     }
