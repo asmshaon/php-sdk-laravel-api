@@ -14,9 +14,9 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  *   id: int,
  *   content: string,
  *   title: string,
- *   user_id: int,
- *   created_at?: \DateTimeInterface|null,
- *   updated_at?: \DateTimeInterface|null,
+ *   userID: int,
+ *   createdAt?: \DateTimeInterface|null,
+ *   updatedAt?: \DateTimeInterface|null,
  * }
  */
 final class Post implements BaseModel
@@ -33,21 +33,21 @@ final class Post implements BaseModel
     #[Required]
     public string $title;
 
-    #[Required]
-    public int $user_id;
+    #[Required('user_id')]
+    public int $userID;
 
-    #[Optional]
-    public ?\DateTimeInterface $created_at;
+    #[Optional('created_at')]
+    public ?\DateTimeInterface $createdAt;
 
-    #[Optional]
-    public ?\DateTimeInterface $updated_at;
+    #[Optional('updated_at')]
+    public ?\DateTimeInterface $updatedAt;
 
     /**
      * `new Post()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Post::with(id: ..., content: ..., title: ..., user_id: ...)
+     * Post::with(id: ..., content: ..., title: ..., userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -70,19 +70,19 @@ final class Post implements BaseModel
         int $id,
         string $content,
         string $title,
-        int $user_id,
-        ?\DateTimeInterface $created_at = null,
-        ?\DateTimeInterface $updated_at = null,
+        int $userID,
+        ?\DateTimeInterface $createdAt = null,
+        ?\DateTimeInterface $updatedAt = null,
     ): self {
         $obj = new self;
 
         $obj['id'] = $id;
         $obj['content'] = $content;
         $obj['title'] = $title;
-        $obj['user_id'] = $user_id;
+        $obj['userID'] = $userID;
 
-        null !== $created_at && $obj['created_at'] = $created_at;
-        null !== $updated_at && $obj['updated_at'] = $updated_at;
+        null !== $createdAt && $obj['createdAt'] = $createdAt;
+        null !== $updatedAt && $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }
@@ -114,7 +114,7 @@ final class Post implements BaseModel
     public function withUserID(int $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -122,7 +122,7 @@ final class Post implements BaseModel
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
         $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $obj['createdAt'] = $createdAt;
 
         return $obj;
     }
@@ -130,7 +130,7 @@ final class Post implements BaseModel
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $obj = clone $this;
-        $obj['updated_at'] = $updatedAt;
+        $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }

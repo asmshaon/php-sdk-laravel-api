@@ -14,7 +14,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  *
  * @see SDKAbuAPI\Services\PostsService::list()
  *
- * @phpstan-type PostListParamsShape = array{user_id?: int}
+ * @phpstan-type PostListParamsShape = array{userID?: int}
  */
 final class PostListParams implements BaseModel
 {
@@ -26,7 +26,7 @@ final class PostListParams implements BaseModel
      * Filter posts by user ID.
      */
     #[Optional]
-    public ?int $user_id;
+    public ?int $userID;
 
     public function __construct()
     {
@@ -38,11 +38,11 @@ final class PostListParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(?int $user_id = null): self
+    public static function with(?int $userID = null): self
     {
         $obj = new self;
 
-        null !== $user_id && $obj['user_id'] = $user_id;
+        null !== $userID && $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -53,7 +53,7 @@ final class PostListParams implements BaseModel
     public function withUserID(int $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }
