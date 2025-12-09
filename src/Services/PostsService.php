@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SDKAbuAPI\Services;
 
 use SDKAbuAPI\Client;
+use SDKAbuAPI\Core\Contracts\BaseResponse;
 use SDKAbuAPI\Core\Conversion\ListOf;
 use SDKAbuAPI\Core\Exceptions\APIException;
 use SDKAbuAPI\Posts\Post;
@@ -42,14 +43,16 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Post> */
+        $response = $this->client->request(
             method: 'post',
             path: 'posts',
             body: (object) $parsed,
             options: $options,
             convert: Post::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -63,13 +66,15 @@ final class PostsService implements PostsContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): Post {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Post> */
+        $response = $this->client->request(
             method: 'get',
             path: ['posts/%1$s', $id],
             options: $requestOptions,
             convert: Post::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -93,14 +98,16 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Post> */
+        $response = $this->client->request(
             method: 'put',
             path: ['posts/%1$s', $id],
             body: (object) $parsed,
             options: $options,
             convert: Post::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -123,14 +130,16 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<list<Post>> */
+        $response = $this->client->request(
             method: 'get',
             path: 'posts',
             query: $parsed,
             options: $options,
             convert: new ListOf(Post::class),
         );
+
+        return $response->parse();
     }
 
     /**
@@ -144,13 +153,15 @@ final class PostsService implements PostsContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['posts/%1$s', $id],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -172,13 +183,15 @@ final class PostsService implements PostsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Post> */
+        $response = $this->client->request(
             method: 'patch',
             path: ['posts/%1$s', $id],
             body: (object) $parsed,
             options: $options,
             convert: Post::class,
         );
+
+        return $response->parse();
     }
 }
