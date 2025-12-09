@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SDKAbuAPI\Services;
 
 use SDKAbuAPI\Client;
+use SDKAbuAPI\Core\Contracts\BaseResponse;
 use SDKAbuAPI\Core\Conversion\ListOf;
 use SDKAbuAPI\Core\Exceptions\APIException;
 use SDKAbuAPI\RequestOptions;
@@ -41,14 +42,16 @@ final class UsersService implements UsersContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<User> */
+        $response = $this->client->request(
             method: 'post',
             path: 'users',
             body: (object) $parsed,
             options: $options,
             convert: User::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -62,13 +65,15 @@ final class UsersService implements UsersContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): User {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<User> */
+        $response = $this->client->request(
             method: 'get',
             path: ['users/%1$s', $id],
             options: $requestOptions,
             convert: User::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -92,14 +97,16 @@ final class UsersService implements UsersContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<User> */
+        $response = $this->client->request(
             method: 'put',
             path: ['users/%1$s', $id],
             body: (object) $parsed,
             options: $options,
             convert: User::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -113,13 +120,15 @@ final class UsersService implements UsersContract
      */
     public function list(?RequestOptions $requestOptions = null): array
     {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<list<User>> */
+        $response = $this->client->request(
             method: 'get',
             path: 'users',
             options: $requestOptions,
             convert: new ListOf(User::class),
         );
+
+        return $response->parse();
     }
 
     /**
@@ -133,13 +142,15 @@ final class UsersService implements UsersContract
         int $id,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['users/%1$s', $id],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -161,13 +172,15 @@ final class UsersService implements UsersContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<User> */
+        $response = $this->client->request(
             method: 'patch',
             path: ['users/%1$s', $id],
             body: (object) $parsed,
             options: $options,
             convert: User::class,
         );
+
+        return $response->parse();
     }
 }

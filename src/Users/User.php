@@ -6,9 +6,7 @@ namespace SDKAbuAPI\Users;
 
 use SDKAbuAPI\Core\Attributes\Api;
 use SDKAbuAPI\Core\Concerns\SdkModel;
-use SDKAbuAPI\Core\Concerns\SdkResponse;
 use SDKAbuAPI\Core\Contracts\BaseModel;
-use SDKAbuAPI\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type UserShape = array{
@@ -20,12 +18,10 @@ use SDKAbuAPI\Core\Conversion\Contracts\ResponseConverter;
  *   updated_at?: \DateTimeInterface|null,
  * }
  */
-final class User implements BaseModel, ResponseConverter
+final class User implements BaseModel
 {
     /** @use SdkModel<UserShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public int $id;

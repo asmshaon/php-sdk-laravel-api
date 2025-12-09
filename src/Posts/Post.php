@@ -6,9 +6,7 @@ namespace SDKAbuAPI\Posts;
 
 use SDKAbuAPI\Core\Attributes\Api;
 use SDKAbuAPI\Core\Concerns\SdkModel;
-use SDKAbuAPI\Core\Concerns\SdkResponse;
 use SDKAbuAPI\Core\Contracts\BaseModel;
-use SDKAbuAPI\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type PostShape = array{
@@ -20,12 +18,10 @@ use SDKAbuAPI\Core\Conversion\Contracts\ResponseConverter;
  *   updated_at?: \DateTimeInterface|null,
  * }
  */
-final class Post implements BaseModel, ResponseConverter
+final class Post implements BaseModel
 {
     /** @use SdkModel<PostShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public int $id;
