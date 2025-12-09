@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Posts;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Concerns\SdkParams;
 use SDKAbuAPI\Core\Contracts\BaseModel;
@@ -24,13 +24,13 @@ final class PostUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $content;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $title;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?int $user_id;
 
     public function __construct()

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Posts;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
+use SDKAbuAPI\Core\Attributes\Required;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Contracts\BaseModel;
 
@@ -23,22 +24,22 @@ final class Post implements BaseModel
     /** @use SdkModel<PostShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public int $id;
 
-    #[Api]
+    #[Required]
     public string $content;
 
-    #[Api]
+    #[Required]
     public string $title;
 
-    #[Api]
+    #[Required]
     public int $user_id;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?\DateTimeInterface $created_at;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?\DateTimeInterface $updated_at;
 
     /**

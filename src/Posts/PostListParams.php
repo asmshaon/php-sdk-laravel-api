@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Posts;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Concerns\SdkParams;
 use SDKAbuAPI\Core\Contracts\BaseModel;
@@ -25,7 +25,7 @@ final class PostListParams implements BaseModel
     /**
      * Filter posts by user ID.
      */
-    #[Api(optional: true)]
+    #[Optional]
     public ?int $user_id;
 
     public function __construct()
