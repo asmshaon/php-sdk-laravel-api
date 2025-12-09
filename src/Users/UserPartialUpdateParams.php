@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Users;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Concerns\SdkParams;
 use SDKAbuAPI\Core\Contracts\BaseModel;
@@ -24,10 +24,10 @@ final class UserPartialUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $email;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $name;
 
     public function __construct()

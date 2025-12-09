@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Users;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
+use SDKAbuAPI\Core\Attributes\Required;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Contracts\BaseModel;
 
@@ -23,22 +24,22 @@ final class User implements BaseModel
     /** @use SdkModel<UserShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public int $id;
 
-    #[Api]
+    #[Required]
     public string $email;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?\DateTimeInterface $created_at;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?\DateTimeInterface $email_verified_at;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?\DateTimeInterface $updated_at;
 
     /**

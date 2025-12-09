@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Posts;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Required;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Concerns\SdkParams;
 use SDKAbuAPI\Core\Contracts\BaseModel;
@@ -24,13 +24,13 @@ final class PostCreateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $content;
 
-    #[Api]
+    #[Required]
     public string $title;
 
-    #[Api]
+    #[Required]
     public int $user_id;
 
     /**
