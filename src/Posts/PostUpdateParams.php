@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\PostsService::update()
  *
  * @phpstan-type PostUpdateParamsShape = array{
- *   content?: string, title?: string, user_id?: int
+ *   content?: string, title?: string, userID?: int
  * }
  */
 final class PostUpdateParams implements BaseModel
@@ -30,8 +30,8 @@ final class PostUpdateParams implements BaseModel
     #[Optional]
     public ?string $title;
 
-    #[Optional]
-    public ?int $user_id;
+    #[Optional('user_id')]
+    public ?int $userID;
 
     public function __construct()
     {
@@ -46,13 +46,13 @@ final class PostUpdateParams implements BaseModel
     public static function with(
         ?string $content = null,
         ?string $title = null,
-        ?int $user_id = null
+        ?int $userID = null
     ): self {
         $obj = new self;
 
         null !== $content && $obj['content'] = $content;
         null !== $title && $obj['title'] = $title;
-        null !== $user_id && $obj['user_id'] = $user_id;
+        null !== $userID && $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -76,7 +76,7 @@ final class PostUpdateParams implements BaseModel
     public function withUserID(int $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }

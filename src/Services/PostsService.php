@@ -8,6 +8,7 @@ use SDKAbuAPI\Client;
 use SDKAbuAPI\Core\Contracts\BaseResponse;
 use SDKAbuAPI\Core\Conversion\ListOf;
 use SDKAbuAPI\Core\Exceptions\APIException;
+use SDKAbuAPI\Core\Util;
 use SDKAbuAPI\Posts\Post;
 use SDKAbuAPI\Posts\PostCreateParams;
 use SDKAbuAPI\Posts\PostListParams;
@@ -29,7 +30,7 @@ final class PostsService implements PostsContract
      * Create a new post
      *
      * @param array{
-     *   content: string, title: string, user_id: int
+     *   content: string, title: string, userID: int
      * }|PostCreateParams $params
      *
      * @throws APIException
@@ -83,7 +84,7 @@ final class PostsService implements PostsContract
      * Update post
      *
      * @param array{
-     *   content?: string, title?: string, user_id?: int
+     *   content?: string, title?: string, userID?: int
      * }|PostUpdateParams $params
      *
      * @throws APIException
@@ -115,7 +116,7 @@ final class PostsService implements PostsContract
      *
      * Get all posts
      *
-     * @param array{user_id?: int}|PostListParams $params
+     * @param array{userID?: int}|PostListParams $params
      *
      * @return list<Post>
      *
@@ -134,7 +135,7 @@ final class PostsService implements PostsContract
         $response = $this->client->request(
             method: 'get',
             path: 'posts',
-            query: $parsed,
+            query: Util::array_transform_keys($parsed, ['userID' => 'user_id']),
             options: $options,
             convert: new ListOf(Post::class),
         );

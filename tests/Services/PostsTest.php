@@ -37,7 +37,7 @@ final class PostsTest extends TestCase
         $result = $this->client->posts->create([
             'content' => 'This is the content of my first post',
             'title' => 'My First Post',
-            'user_id' => 1,
+            'userID' => 1,
         ]);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -54,7 +54,7 @@ final class PostsTest extends TestCase
         $result = $this->client->posts->create([
             'content' => 'This is the content of my first post',
             'title' => 'My First Post',
-            'user_id' => 1,
+            'userID' => 1,
         ]);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

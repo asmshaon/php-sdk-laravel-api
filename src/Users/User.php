@@ -14,9 +14,9 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  *   id: int,
  *   email: string,
  *   name: string,
- *   created_at?: \DateTimeInterface|null,
- *   email_verified_at?: \DateTimeInterface|null,
- *   updated_at?: \DateTimeInterface|null,
+ *   createdAt?: \DateTimeInterface|null,
+ *   emailVerifiedAt?: \DateTimeInterface|null,
+ *   updatedAt?: \DateTimeInterface|null,
  * }
  */
 final class User implements BaseModel
@@ -33,14 +33,14 @@ final class User implements BaseModel
     #[Required]
     public string $name;
 
-    #[Optional]
-    public ?\DateTimeInterface $created_at;
+    #[Optional('created_at')]
+    public ?\DateTimeInterface $createdAt;
 
-    #[Optional(nullable: true)]
-    public ?\DateTimeInterface $email_verified_at;
+    #[Optional('email_verified_at', nullable: true)]
+    public ?\DateTimeInterface $emailVerifiedAt;
 
-    #[Optional]
-    public ?\DateTimeInterface $updated_at;
+    #[Optional('updated_at')]
+    public ?\DateTimeInterface $updatedAt;
 
     /**
      * `new User()` is missing required properties by the API.
@@ -70,9 +70,9 @@ final class User implements BaseModel
         int $id,
         string $email,
         string $name,
-        ?\DateTimeInterface $created_at = null,
-        ?\DateTimeInterface $email_verified_at = null,
-        ?\DateTimeInterface $updated_at = null,
+        ?\DateTimeInterface $createdAt = null,
+        ?\DateTimeInterface $emailVerifiedAt = null,
+        ?\DateTimeInterface $updatedAt = null,
     ): self {
         $obj = new self;
 
@@ -80,9 +80,9 @@ final class User implements BaseModel
         $obj['email'] = $email;
         $obj['name'] = $name;
 
-        null !== $created_at && $obj['created_at'] = $created_at;
-        null !== $email_verified_at && $obj['email_verified_at'] = $email_verified_at;
-        null !== $updated_at && $obj['updated_at'] = $updated_at;
+        null !== $createdAt && $obj['createdAt'] = $createdAt;
+        null !== $emailVerifiedAt && $obj['emailVerifiedAt'] = $emailVerifiedAt;
+        null !== $updatedAt && $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }
@@ -114,7 +114,7 @@ final class User implements BaseModel
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
         $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $obj['createdAt'] = $createdAt;
 
         return $obj;
     }
@@ -123,7 +123,7 @@ final class User implements BaseModel
         ?\DateTimeInterface $emailVerifiedAt
     ): self {
         $obj = clone $this;
-        $obj['email_verified_at'] = $emailVerifiedAt;
+        $obj['emailVerifiedAt'] = $emailVerifiedAt;
 
         return $obj;
     }
@@ -131,7 +131,7 @@ final class User implements BaseModel
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $obj = clone $this;
-        $obj['updated_at'] = $updatedAt;
+        $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }

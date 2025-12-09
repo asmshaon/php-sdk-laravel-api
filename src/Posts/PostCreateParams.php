@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\PostsService::create()
  *
  * @phpstan-type PostCreateParamsShape = array{
- *   content: string, title: string, user_id: int
+ *   content: string, title: string, userID: int
  * }
  */
 final class PostCreateParams implements BaseModel
@@ -30,15 +30,15 @@ final class PostCreateParams implements BaseModel
     #[Required]
     public string $title;
 
-    #[Required]
-    public int $user_id;
+    #[Required('user_id')]
+    public int $userID;
 
     /**
      * `new PostCreateParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * PostCreateParams::with(content: ..., title: ..., user_id: ...)
+     * PostCreateParams::with(content: ..., title: ..., userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -60,13 +60,13 @@ final class PostCreateParams implements BaseModel
     public static function with(
         string $content,
         string $title,
-        int $user_id
+        int $userID
     ): self {
         $obj = new self;
 
         $obj['content'] = $content;
         $obj['title'] = $title;
-        $obj['user_id'] = $user_id;
+        $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -90,7 +90,7 @@ final class PostCreateParams implements BaseModel
     public function withUserID(int $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }
