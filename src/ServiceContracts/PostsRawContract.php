@@ -4,88 +4,102 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\ServiceContracts;
 
+use SDKAbuAPI\Core\Contracts\BaseResponse;
 use SDKAbuAPI\Core\Exceptions\APIException;
 use SDKAbuAPI\Posts\Post;
+use SDKAbuAPI\Posts\PostCreateParams;
+use SDKAbuAPI\Posts\PostListParams;
+use SDKAbuAPI\Posts\PostPartialUpdateParams;
+use SDKAbuAPI\Posts\PostUpdateParams;
 use SDKAbuAPI\RequestOptions;
 
-interface PostsContract
+interface PostsRawContract
 {
     /**
      * @api
      *
+     * @param array<mixed>|PostCreateParams $params
+     *
+     * @return BaseResponse<Post>
+     *
      * @throws APIException
      */
     public function create(
-        string $content,
-        string $title,
-        int $userID,
-        ?RequestOptions $requestOptions = null,
-    ): Post;
+        array|PostCreateParams $params,
+        ?RequestOptions $requestOptions = null
+    ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     *
+     * @return BaseResponse<Post>
      *
      * @throws APIException
      */
     public function retrieve(
         int $id,
         ?RequestOptions $requestOptions = null
-    ): Post;
+    ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param array<mixed>|PostUpdateParams $params
+     *
+     * @return BaseResponse<Post>
      *
      * @throws APIException
      */
     public function update(
         int $id,
-        ?string $content = null,
-        ?string $title = null,
-        ?int $userID = null,
+        array|PostUpdateParams $params,
         ?RequestOptions $requestOptions = null,
-    ): Post;
+    ): BaseResponse;
 
     /**
      * @api
      *
-     * @param int $userID Filter posts by user ID
+     * @param array<mixed>|PostListParams $params
      *
-     * @return list<Post>
+     * @return BaseResponse<list<Post>>
      *
      * @throws APIException
      */
     public function list(
-        ?int $userID = null,
+        array|PostListParams $params,
         ?RequestOptions $requestOptions = null
-    ): array;
+    ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     *
+     * @return BaseResponse<mixed>
      *
      * @throws APIException
      */
     public function delete(
         int $id,
         ?RequestOptions $requestOptions = null
-    ): mixed;
+    ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param array<mixed>|PostPartialUpdateParams $params
+     *
+     * @return BaseResponse<Post>
      *
      * @throws APIException
      */
     public function partialUpdate(
         int $id,
-        ?string $content = null,
-        ?string $title = null,
+        array|PostPartialUpdateParams $params,
         ?RequestOptions $requestOptions = null,
-    ): Post;
+    ): BaseResponse;
 }

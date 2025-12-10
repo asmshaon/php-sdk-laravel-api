@@ -34,11 +34,11 @@ final class PostsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->posts->create([
-            'content' => 'This is the content of my first post',
-            'title' => 'My First Post',
-            'userID' => 1,
-        ]);
+        $result = $this->client->posts->create(
+            content: 'This is the content of my first post',
+            title: 'My First Post',
+            userID: 1,
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Post::class, $result);
@@ -51,11 +51,11 @@ final class PostsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->posts->create([
-            'content' => 'This is the content of my first post',
-            'title' => 'My First Post',
-            'userID' => 1,
-        ]);
+        $result = $this->client->posts->create(
+            content: 'This is the content of my first post',
+            title: 'My First Post',
+            userID: 1,
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Post::class, $result);
@@ -81,7 +81,7 @@ final class PostsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->posts->update(0, []);
+        $result = $this->client->posts->update(0);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Post::class, $result);
@@ -94,7 +94,7 @@ final class PostsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->posts->list([]);
+        $result = $this->client->posts->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertIsList($result);
@@ -120,7 +120,7 @@ final class PostsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->posts->partialUpdate(0, []);
+        $result = $this->client->posts->partialUpdate(0);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Post::class, $result);
