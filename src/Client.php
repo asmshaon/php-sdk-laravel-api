@@ -7,6 +7,7 @@ namespace SDKAbuAPI;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use SDKAbuAPI\Core\BaseClient;
+use SDKAbuAPI\Core\Util;
 use SDKAbuAPI\Services\PostsService;
 use SDKAbuAPI\Services\UsersService;
 
@@ -45,9 +46,9 @@ class Client extends BaseClient
                 'User-Agent' => sprintf('sdk-abu-api/PHP %s', '0.0.1'),
                 'X-Stainless-Lang' => 'php',
                 'X-Stainless-Package-Version' => '0.0.1',
-                'X-Stainless-OS' => $this->getNormalizedOS(),
-                'X-Stainless-Arch' => $this->getNormalizedArchitecture(),
-                'X-Stainless-Runtime' => 'php',
+                'X-Stainless-Arch' => Util::machtype(),
+                'X-Stainless-OS' => Util::ostype(),
+                'X-Stainless-Runtime' => php_sapi_name(),
                 'X-Stainless-Runtime-Version' => phpversion(),
             ],
             // x-release-please-end
