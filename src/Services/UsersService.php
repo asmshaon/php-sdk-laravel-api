@@ -5,51 +5,43 @@ declare(strict_types=1);
 namespace SDKAbuAPI\Services;
 
 use SDKAbuAPI\Client;
-use SDKAbuAPI\Core\Contracts\BaseResponse;
-use SDKAbuAPI\Core\Conversion\ListOf;
 use SDKAbuAPI\Core\Exceptions\APIException;
 use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\ServiceContracts\UsersContract;
 use SDKAbuAPI\Users\User;
-use SDKAbuAPI\Users\UserCreateParams;
-use SDKAbuAPI\Users\UserPartialUpdateParams;
-use SDKAbuAPI\Users\UserUpdateParams;
 
 final class UsersService implements UsersContract
 {
     /**
+     * @api
+     */
+    public UsersRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new UsersRawService($client);
+    }
 
     /**
      * @api
      *
      * Create a new user
      *
-     * @param array{
-     *   email: string, name: string, password: string
-     * }|UserCreateParams $params
-     *
      * @throws APIException
      */
     public function create(
-        array|UserCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        string $email,
+        string $name,
+        string $password,
+        ?RequestOptions $requestOptions = null,
     ): User {
-        [$parsed, $options] = UserCreateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['email' => $email, 'name' => $name, 'password' => $password];
 
-        /** @var BaseResponse<User> */
-        $response = $this->client->request(
-            method: 'post',
-            path: 'users',
-            body: (object) $parsed,
-            options: $options,
-            convert: User::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->create(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -59,19 +51,16 @@ final class UsersService implements UsersContract
      *
      * Get user by ID
      *
+     * @param int $id User ID
+     *
      * @throws APIException
      */
     public function retrieve(
         int $id,
         ?RequestOptions $requestOptions = null
     ): User {
-        /** @var BaseResponse<User> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['users/%1$s', $id],
-            options: $requestOptions,
-            convert: User::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($id, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -81,30 +70,23 @@ final class UsersService implements UsersContract
      *
      * Update user
      *
-     * @param array{
-     *   email?: string, name?: string, password?: string
-     * }|UserUpdateParams $params
+     * @param int $id User ID
      *
      * @throws APIException
      */
     public function update(
         int $id,
-        array|UserUpdateParams $params,
+        ?string $email = null,
+        ?string $name = null,
+        ?string $password = null,
         ?RequestOptions $requestOptions = null,
     ): User {
-        [$parsed, $options] = UserUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['email' => $email, 'name' => $name, 'password' => $password];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<User> */
-        $response = $this->client->request(
-            method: 'put',
-            path: ['users/%1$s', $id],
-            body: (object) $parsed,
-            options: $options,
-            convert: User::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($id, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -120,13 +102,8 @@ final class UsersService implements UsersContract
      */
     public function list(?RequestOptions $requestOptions = null): array
     {
-        /** @var BaseResponse<list<User>> */
-        $response = $this->client->request(
-            method: 'get',
-            path: 'users',
-            options: $requestOptions,
-            convert: new ListOf(User::class),
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -136,19 +113,16 @@ final class UsersService implements UsersContract
      *
      * Delete user
      *
+     * @param int $id User ID
+     *
      * @throws APIException
      */
     public function delete(
         int $id,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'delete',
-            path: ['users/%1$s', $id],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($id, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -158,28 +132,22 @@ final class UsersService implements UsersContract
      *
      * Partially update user
      *
-     * @param array{email?: string, name?: string}|UserPartialUpdateParams $params
+     * @param int $id User ID
      *
      * @throws APIException
      */
     public function partialUpdate(
         int $id,
-        array|UserPartialUpdateParams $params,
+        ?string $email = null,
+        ?string $name = null,
         ?RequestOptions $requestOptions = null,
     ): User {
-        [$parsed, $options] = UserPartialUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['email' => $email, 'name' => $name];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<User> */
-        $response = $this->client->request(
-            method: 'patch',
-            path: ['users/%1$s', $id],
-            body: (object) $parsed,
-            options: $options,
-            convert: User::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->partialUpdate($id, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

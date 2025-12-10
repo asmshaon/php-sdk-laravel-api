@@ -34,11 +34,11 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->create([
-            'email' => 'john@example.com',
-            'name' => 'John Doe',
-            'password' => 'password123',
-        ]);
+        $result = $this->client->users->create(
+            email: 'john@example.com',
+            name: 'John Doe',
+            password: 'password123'
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(User::class, $result);
@@ -51,11 +51,11 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->create([
-            'email' => 'john@example.com',
-            'name' => 'John Doe',
-            'password' => 'password123',
-        ]);
+        $result = $this->client->users->create(
+            email: 'john@example.com',
+            name: 'John Doe',
+            password: 'password123'
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(User::class, $result);
@@ -81,7 +81,7 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->update(0, []);
+        $result = $this->client->users->update(0);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(User::class, $result);
@@ -120,7 +120,7 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->partialUpdate(0, []);
+        $result = $this->client->users->partialUpdate(0);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(User::class, $result);

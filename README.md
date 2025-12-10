@@ -47,7 +47,7 @@ use SDKAbuAPI\Client;
 
 $client = new Client(apiKey: getenv('SDK_ABU_API_API_KEY') ?: 'My API Key');
 
-$posts = $client->posts->list([]);
+$posts = $client->posts->list();
 
 var_dump($posts);
 ```
@@ -69,11 +69,11 @@ When the library is unable to connect to the API, or if the API returns a non-su
 use SDKAbuAPI\Core\Exceptions\APIConnectionException;
 
 try {
-  $posts = $client->posts->list([]);
+  $posts = $client->posts->list();
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
   var_dump($e->getPrevious());
-} catch (RateLimitError $_) {
+} catch (RateLimitError $e) {
   echo "A 429 status code was received; we should back off a bit.", PHP_EOL;
 } catch (APIStatusError $e) {
   echo "Another non-200-range status code was received", PHP_EOL;
@@ -115,7 +115,9 @@ use SDKAbuAPI\RequestOptions;
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
-$result = $client->posts->list([], RequestOptions::with(maxRetries: 5));
+$result = $client->posts->list(
+  requestOptions: RequestOptions::with(maxRetries: 5)
+);
 ```
 
 ## Advanced concepts
@@ -134,8 +136,7 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 use SDKAbuAPI\RequestOptions;
 
 $posts = $client->posts->list(
-  [],
-  RequestOptions::with(
+  requestOptions: RequestOptions::with(
     extraQueryParams: ['my_query_parameter' => 'value'],
     extraBodyParams: ['my_body_parameter' => 'value'],
     extraHeaders: ['my-header' => 'value'],

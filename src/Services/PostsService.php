@@ -5,53 +5,43 @@ declare(strict_types=1);
 namespace SDKAbuAPI\Services;
 
 use SDKAbuAPI\Client;
-use SDKAbuAPI\Core\Contracts\BaseResponse;
-use SDKAbuAPI\Core\Conversion\ListOf;
 use SDKAbuAPI\Core\Exceptions\APIException;
-use SDKAbuAPI\Core\Util;
 use SDKAbuAPI\Posts\Post;
-use SDKAbuAPI\Posts\PostCreateParams;
-use SDKAbuAPI\Posts\PostListParams;
-use SDKAbuAPI\Posts\PostPartialUpdateParams;
-use SDKAbuAPI\Posts\PostUpdateParams;
 use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\ServiceContracts\PostsContract;
 
 final class PostsService implements PostsContract
 {
     /**
+     * @api
+     */
+    public PostsRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new PostsRawService($client);
+    }
 
     /**
      * @api
      *
      * Create a new post
      *
-     * @param array{
-     *   content: string, title: string, userID: int
-     * }|PostCreateParams $params
-     *
      * @throws APIException
      */
     public function create(
-        array|PostCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        string $content,
+        string $title,
+        int $userID,
+        ?RequestOptions $requestOptions = null,
     ): Post {
-        [$parsed, $options] = PostCreateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['content' => $content, 'title' => $title, 'userID' => $userID];
 
-        /** @var BaseResponse<Post> */
-        $response = $this->client->request(
-            method: 'post',
-            path: 'posts',
-            body: (object) $parsed,
-            options: $options,
-            convert: Post::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->create(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -61,19 +51,16 @@ final class PostsService implements PostsContract
      *
      * Get post by ID
      *
+     * @param int $id Post ID
+     *
      * @throws APIException
      */
     public function retrieve(
         int $id,
         ?RequestOptions $requestOptions = null
     ): Post {
-        /** @var BaseResponse<Post> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['posts/%1$s', $id],
-            options: $requestOptions,
-            convert: Post::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($id, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -83,30 +70,23 @@ final class PostsService implements PostsContract
      *
      * Update post
      *
-     * @param array{
-     *   content?: string, title?: string, userID?: int
-     * }|PostUpdateParams $params
+     * @param int $id Post ID
      *
      * @throws APIException
      */
     public function update(
         int $id,
-        array|PostUpdateParams $params,
+        ?string $content = null,
+        ?string $title = null,
+        ?int $userID = null,
         ?RequestOptions $requestOptions = null,
     ): Post {
-        [$parsed, $options] = PostUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['content' => $content, 'title' => $title, 'userID' => $userID];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<Post> */
-        $response = $this->client->request(
-            method: 'put',
-            path: ['posts/%1$s', $id],
-            body: (object) $parsed,
-            options: $options,
-            convert: Post::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($id, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -116,29 +96,22 @@ final class PostsService implements PostsContract
      *
      * Get all posts
      *
-     * @param array{userID?: int}|PostListParams $params
+     * @param int $userID Filter posts by user ID
      *
      * @return list<Post>
      *
      * @throws APIException
      */
     public function list(
-        array|PostListParams $params,
+        ?int $userID = null,
         ?RequestOptions $requestOptions = null
     ): array {
-        [$parsed, $options] = PostListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['userID' => $userID];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<list<Post>> */
-        $response = $this->client->request(
-            method: 'get',
-            path: 'posts',
-            query: Util::array_transform_keys($parsed, ['userID' => 'user_id']),
-            options: $options,
-            convert: new ListOf(Post::class),
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -148,19 +121,16 @@ final class PostsService implements PostsContract
      *
      * Delete post
      *
+     * @param int $id Post ID
+     *
      * @throws APIException
      */
     public function delete(
         int $id,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'delete',
-            path: ['posts/%1$s', $id],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($id, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -170,28 +140,22 @@ final class PostsService implements PostsContract
      *
      * Partially update post
      *
-     * @param array{content?: string, title?: string}|PostPartialUpdateParams $params
+     * @param int $id Post ID
      *
      * @throws APIException
      */
     public function partialUpdate(
         int $id,
-        array|PostPartialUpdateParams $params,
+        ?string $content = null,
+        ?string $title = null,
         ?RequestOptions $requestOptions = null,
     ): Post {
-        [$parsed, $options] = PostPartialUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['content' => $content, 'title' => $title];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<Post> */
-        $response = $this->client->request(
-            method: 'patch',
-            path: ['posts/%1$s', $id],
-            body: (object) $parsed,
-            options: $options,
-            convert: Post::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->partialUpdate($id, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
