@@ -74,65 +74,65 @@ final class User implements BaseModel
         ?\DateTimeInterface $emailVerifiedAt = null,
         ?\DateTimeInterface $updatedAt = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['email'] = $email;
-        $obj['name'] = $name;
+        $self['id'] = $id;
+        $self['email'] = $email;
+        $self['name'] = $name;
 
-        null !== $createdAt && $obj['createdAt'] = $createdAt;
-        null !== $emailVerifiedAt && $obj['emailVerifiedAt'] = $emailVerifiedAt;
-        null !== $updatedAt && $obj['updatedAt'] = $updatedAt;
+        null !== $createdAt && $self['createdAt'] = $createdAt;
+        null !== $emailVerifiedAt && $self['emailVerifiedAt'] = $emailVerifiedAt;
+        null !== $updatedAt && $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(int $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withEmail(string $email): self
     {
-        $obj = clone $this;
-        $obj['email'] = $email;
+        $self = clone $this;
+        $self['email'] = $email;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $obj = clone $this;
-        $obj['createdAt'] = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withEmailVerifiedAt(
         ?\DateTimeInterface $emailVerifiedAt
     ): self {
-        $obj = clone $this;
-        $obj['emailVerifiedAt'] = $emailVerifiedAt;
+        $self = clone $this;
+        $self['emailVerifiedAt'] = $emailVerifiedAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $obj = clone $this;
-        $obj['updatedAt'] = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 }
