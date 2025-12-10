@@ -44,27 +44,27 @@ final class PostPartialUpdateParams implements BaseModel
         ?string $content = null,
         ?string $title = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $content && $obj['content'] = $content;
-        null !== $title && $obj['title'] = $title;
+        null !== $content && $self['content'] = $content;
+        null !== $title && $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     public function withContent(string $content): self
     {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withTitle(string $title): self
     {
-        $obj = clone $this;
-        $obj['title'] = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 }
