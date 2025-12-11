@@ -6,6 +6,7 @@ namespace SDKAbuAPI\Services;
 
 use SDKAbuAPI\Client;
 use SDKAbuAPI\Core\Exceptions\APIException;
+use SDKAbuAPI\Core\Util;
 use SDKAbuAPI\Posts\Post;
 use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\ServiceContracts\PostsContract;
@@ -38,7 +39,9 @@ final class PostsService implements PostsContract
         int $userID,
         ?RequestOptions $requestOptions = null,
     ): Post {
-        $params = ['content' => $content, 'title' => $title, 'userID' => $userID];
+        $params = Util::removeNulls(
+            ['content' => $content, 'title' => $title, 'userID' => $userID]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->create(params: $params, requestOptions: $requestOptions);
@@ -81,9 +84,9 @@ final class PostsService implements PostsContract
         ?int $userID = null,
         ?RequestOptions $requestOptions = null,
     ): Post {
-        $params = ['content' => $content, 'title' => $title, 'userID' => $userID];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            ['content' => $content, 'title' => $title, 'userID' => $userID]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($id, params: $params, requestOptions: $requestOptions);
@@ -106,9 +109,7 @@ final class PostsService implements PostsContract
         ?int $userID = null,
         ?RequestOptions $requestOptions = null
     ): array {
-        $params = ['userID' => $userID];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['userID' => $userID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
@@ -150,9 +151,7 @@ final class PostsService implements PostsContract
         ?string $title = null,
         ?RequestOptions $requestOptions = null,
     ): Post {
-        $params = ['content' => $content, 'title' => $title];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['content' => $content, 'title' => $title]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->partialUpdate($id, params: $params, requestOptions: $requestOptions);

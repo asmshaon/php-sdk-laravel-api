@@ -6,6 +6,7 @@ namespace SDKAbuAPI\Services;
 
 use SDKAbuAPI\Client;
 use SDKAbuAPI\Core\Exceptions\APIException;
+use SDKAbuAPI\Core\Util;
 use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\ServiceContracts\UsersContract;
 use SDKAbuAPI\Users\User;
@@ -38,7 +39,9 @@ final class UsersService implements UsersContract
         string $password,
         ?RequestOptions $requestOptions = null,
     ): User {
-        $params = ['email' => $email, 'name' => $name, 'password' => $password];
+        $params = Util::removeNulls(
+            ['email' => $email, 'name' => $name, 'password' => $password]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->create(params: $params, requestOptions: $requestOptions);
@@ -81,9 +84,9 @@ final class UsersService implements UsersContract
         ?string $password = null,
         ?RequestOptions $requestOptions = null,
     ): User {
-        $params = ['email' => $email, 'name' => $name, 'password' => $password];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            ['email' => $email, 'name' => $name, 'password' => $password]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($id, params: $params, requestOptions: $requestOptions);
@@ -142,9 +145,7 @@ final class UsersService implements UsersContract
         ?string $name = null,
         ?RequestOptions $requestOptions = null,
     ): User {
-        $params = ['email' => $email, 'name' => $name];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['email' => $email, 'name' => $name]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->partialUpdate($id, params: $params, requestOptions: $requestOptions);
