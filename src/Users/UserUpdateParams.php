@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\UsersService::update()
  *
  * @phpstan-type UserUpdateParamsShape = array{
- *   email?: string, name?: string, password?: string
+ *   email?: string|null, name?: string|null, password?: string|null
  * }
  */
 final class UserUpdateParams implements BaseModel

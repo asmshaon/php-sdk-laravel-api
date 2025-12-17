@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\PostsService::partialUpdate()
  *
  * @phpstan-type PostPartialUpdateParamsShape = array{
- *   content?: string, title?: string
+ *   content?: string|null, title?: string|null
  * }
  */
 final class PostPartialUpdateParams implements BaseModel

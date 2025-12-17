@@ -17,7 +17,7 @@ interface UsersRawContract
     /**
      * @api
      *
-     * @param array<mixed>|UserCreateParams $params
+     * @param array<string,mixed>|UserCreateParams $params
      *
      * @return BaseResponse<User>
      *
@@ -46,7 +46,7 @@ interface UsersRawContract
      * @api
      *
      * @param int $id User ID
-     * @param array<mixed>|UserUpdateParams $params
+     * @param array<string,mixed>|UserUpdateParams $params
      *
      * @return BaseResponse<User>
      *
@@ -85,7 +85,7 @@ interface UsersRawContract
      * @api
      *
      * @param int $id User ID
-     * @param array<mixed>|UserPartialUpdateParams $params
+     * @param array<string,mixed>|UserPartialUpdateParams $params
      *
      * @return BaseResponse<User>
      *

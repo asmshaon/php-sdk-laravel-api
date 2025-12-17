@@ -18,7 +18,7 @@ interface PostsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|PostCreateParams $params
+     * @param array<string,mixed>|PostCreateParams $params
      *
      * @return BaseResponse<Post>
      *
@@ -47,7 +47,7 @@ interface PostsRawContract
      * @api
      *
      * @param int $id Post ID
-     * @param array<mixed>|PostUpdateParams $params
+     * @param array<string,mixed>|PostUpdateParams $params
      *
      * @return BaseResponse<Post>
      *
@@ -62,7 +62,7 @@ interface PostsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|PostListParams $params
+     * @param array<string,mixed>|PostListParams $params
      *
      * @return BaseResponse<list<Post>>
      *
@@ -91,7 +91,7 @@ interface PostsRawContract
      * @api
      *
      * @param int $id Post ID
-     * @param array<mixed>|PostPartialUpdateParams $params
+     * @param array<string,mixed>|PostPartialUpdateParams $params
      *
      * @return BaseResponse<Post>
      *
