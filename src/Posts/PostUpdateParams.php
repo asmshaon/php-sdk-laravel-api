@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\PostsService::update()
  *
  * @phpstan-type PostUpdateParamsShape = array{
- *   content?: string, title?: string, userID?: int
+ *   content?: string|null, title?: string|null, userID?: int|null
  * }
  */
 final class PostUpdateParams implements BaseModel

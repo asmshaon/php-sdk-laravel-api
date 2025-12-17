@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\UsersService::partialUpdate()
  *
  * @phpstan-type UserPartialUpdateParamsShape = array{
- *   email?: string, name?: string
+ *   email?: string|null, name?: string|null
  * }
  */
 final class UserPartialUpdateParams implements BaseModel

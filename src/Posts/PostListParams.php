@@ -14,7 +14,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  *
  * @see SDKAbuAPI\Services\PostsService::list()
  *
- * @phpstan-type PostListParamsShape = array{userID?: int}
+ * @phpstan-type PostListParamsShape = array{userID?: int|null}
  */
 final class PostListParams implements BaseModel
 {
