@@ -12,6 +12,8 @@ use SDKAbuAPI\Core\Exceptions\APIStatusException;
 use SDKAbuAPI\RequestOptions;
 
 /**
+ * @phpstan-import-type NormalizedRequest from \SDKAbuAPI\Core\BaseClient
+ *
  * @internal
  *
  * @template Item
@@ -94,7 +96,7 @@ trait SdkPage
     /**
      * @internal
      *
-     * @return array{normalized_request, RequestOptions}
+     * @return array{NormalizedRequest, RequestOptions}
      */
     abstract protected function nextRequest(): ?array;
 }
