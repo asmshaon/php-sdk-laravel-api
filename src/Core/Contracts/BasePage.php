@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SDKAbuAPI\Core\Contracts;
 
 /**
- * @internal
+ * @phpstan-import-type NormalizedRequest from \SDKAbuAPI\Core\BaseClient
  *
- * @phpstan-import-type normalized_request from \SDKAbuAPI\Core\BaseClient
+ * @internal
  *
  * @template Item
  *
