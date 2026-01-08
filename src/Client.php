@@ -12,8 +12,8 @@ use SDKAbuAPI\Services\PostsService;
 use SDKAbuAPI\Services\UsersService;
 
 /**
- * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
  * @phpstan-import-type NormalizedRequest from \SDKAbuAPI\Core\BaseClient
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
  */
 class Client extends BaseClient
 {
@@ -29,17 +29,26 @@ class Client extends BaseClient
      */
     public UsersService $users;
 
-    public function __construct(?string $apiKey = null, ?string $baseUrl = null)
-    {
+    /**
+     * @param RequestOpts|null $requestOptions
+     */
+    public function __construct(
+        ?string $apiKey = null,
+        ?string $baseUrl = null,
+        RequestOptions|array|null $requestOptions = null,
+    ) {
         $this->apiKey = (string) ($apiKey ?? getenv('SDK_ABU_API_API_KEY'));
 
         $baseUrl ??= getenv('SDK_ABU_API_BASE_URL') ?: '/api';
 
-        $options = RequestOptions::with(
-            uriFactory: Psr17FactoryDiscovery::findUriFactory(),
-            streamFactory: Psr17FactoryDiscovery::findStreamFactory(),
-            requestFactory: Psr17FactoryDiscovery::findRequestFactory(),
-            transporter: Psr18ClientDiscovery::find(),
+        $options = RequestOptions::parse(
+            RequestOptions::with(
+                uriFactory: Psr17FactoryDiscovery::findUriFactory(),
+                streamFactory: Psr17FactoryDiscovery::findStreamFactory(),
+                requestFactory: Psr17FactoryDiscovery::findRequestFactory(),
+                transporter: Psr18ClientDiscovery::find(),
+            ),
+            $requestOptions,
         );
 
         parent::__construct(
