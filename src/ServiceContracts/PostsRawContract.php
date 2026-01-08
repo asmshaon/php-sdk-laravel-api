@@ -13,12 +13,16 @@ use SDKAbuAPI\Posts\PostPartialUpdateParams;
 use SDKAbuAPI\Posts\PostUpdateParams;
 use SDKAbuAPI\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 interface PostsRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|PostCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -26,13 +30,14 @@ interface PostsRawContract
      */
     public function create(
         array|PostCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -40,7 +45,7 @@ interface PostsRawContract
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -48,6 +53,7 @@ interface PostsRawContract
      *
      * @param int $id Post ID
      * @param array<string,mixed>|PostUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -56,13 +62,14 @@ interface PostsRawContract
     public function update(
         int $id,
         array|PostUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|PostListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<list<Post>>
      *
@@ -70,13 +77,14 @@ interface PostsRawContract
      */
     public function list(
         array|PostListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -84,7 +92,7 @@ interface PostsRawContract
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -92,6 +100,7 @@ interface PostsRawContract
      *
      * @param int $id Post ID
      * @param array<string,mixed>|PostPartialUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -100,6 +109,6 @@ interface PostsRawContract
     public function partialUpdate(
         int $id,
         array|PostPartialUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

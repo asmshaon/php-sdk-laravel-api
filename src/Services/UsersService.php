@@ -11,6 +11,9 @@ use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\ServiceContracts\UsersContract;
 use SDKAbuAPI\Users\User;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 final class UsersService implements UsersContract
 {
     /**
@@ -31,13 +34,15 @@ final class UsersService implements UsersContract
      *
      * Create a new user
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function create(
         string $email,
         string $name,
         string $password,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): User {
         $params = Util::removeNulls(
             ['email' => $email, 'name' => $name, 'password' => $password]
@@ -55,12 +60,13 @@ final class UsersService implements UsersContract
      * Get user by ID
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): User {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($id, requestOptions: $requestOptions);
@@ -74,6 +80,7 @@ final class UsersService implements UsersContract
      * Update user
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -82,7 +89,7 @@ final class UsersService implements UsersContract
         ?string $email = null,
         ?string $name = null,
         ?string $password = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): User {
         $params = Util::removeNulls(
             ['email' => $email, 'name' => $name, 'password' => $password]
@@ -99,12 +106,15 @@ final class UsersService implements UsersContract
      *
      * Get all users
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return list<User>
      *
      * @throws APIException
      */
-    public function list(?RequestOptions $requestOptions = null): array
-    {
+    public function list(
+        RequestOptions|array|null $requestOptions = null
+    ): array {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(requestOptions: $requestOptions);
 
@@ -117,12 +127,13 @@ final class UsersService implements UsersContract
      * Delete user
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($id, requestOptions: $requestOptions);
@@ -136,6 +147,7 @@ final class UsersService implements UsersContract
      * Partially update user
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -143,7 +155,7 @@ final class UsersService implements UsersContract
         int $id,
         ?string $email = null,
         ?string $name = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): User {
         $params = Util::removeNulls(['email' => $email, 'name' => $name]);
 

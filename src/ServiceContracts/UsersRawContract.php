@@ -12,12 +12,16 @@ use SDKAbuAPI\Users\UserCreateParams;
 use SDKAbuAPI\Users\UserPartialUpdateParams;
 use SDKAbuAPI\Users\UserUpdateParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 interface UsersRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|UserCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -25,13 +29,14 @@ interface UsersRawContract
      */
     public function create(
         array|UserCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -39,7 +44,7 @@ interface UsersRawContract
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -47,6 +52,7 @@ interface UsersRawContract
      *
      * @param int $id User ID
      * @param array<string,mixed>|UserUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -55,22 +61,27 @@ interface UsersRawContract
     public function update(
         int $id,
         array|UserUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return BaseResponse<list<User>>
      *
      * @throws APIException
      */
-    public function list(?RequestOptions $requestOptions = null): BaseResponse;
+    public function list(
+        RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
 
     /**
      * @api
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -78,7 +89,7 @@ interface UsersRawContract
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -86,6 +97,7 @@ interface UsersRawContract
      *
      * @param int $id User ID
      * @param array<string,mixed>|UserPartialUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -94,6 +106,6 @@ interface UsersRawContract
     public function partialUpdate(
         int $id,
         array|UserPartialUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

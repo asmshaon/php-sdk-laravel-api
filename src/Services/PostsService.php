@@ -11,6 +11,9 @@ use SDKAbuAPI\Posts\Post;
 use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\ServiceContracts\PostsContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 final class PostsService implements PostsContract
 {
     /**
@@ -31,13 +34,15 @@ final class PostsService implements PostsContract
      *
      * Create a new post
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function create(
         string $content,
         string $title,
         int $userID,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Post {
         $params = Util::removeNulls(
             ['content' => $content, 'title' => $title, 'userID' => $userID]
@@ -55,12 +60,13 @@ final class PostsService implements PostsContract
      * Get post by ID
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): Post {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($id, requestOptions: $requestOptions);
@@ -74,6 +80,7 @@ final class PostsService implements PostsContract
      * Update post
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -82,7 +89,7 @@ final class PostsService implements PostsContract
         ?string $content = null,
         ?string $title = null,
         ?int $userID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Post {
         $params = Util::removeNulls(
             ['content' => $content, 'title' => $title, 'userID' => $userID]
@@ -100,6 +107,7 @@ final class PostsService implements PostsContract
      * Get all posts
      *
      * @param int $userID Filter posts by user ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return list<Post>
      *
@@ -107,7 +115,7 @@ final class PostsService implements PostsContract
      */
     public function list(
         ?int $userID = null,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): array {
         $params = Util::removeNulls(['userID' => $userID]);
 
@@ -123,12 +131,13 @@ final class PostsService implements PostsContract
      * Delete post
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($id, requestOptions: $requestOptions);
@@ -142,6 +151,7 @@ final class PostsService implements PostsContract
      * Partially update post
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -149,7 +159,7 @@ final class PostsService implements PostsContract
         int $id,
         ?string $content = null,
         ?string $title = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Post {
         $params = Util::removeNulls(['content' => $content, 'title' => $title]);
 
