@@ -8,10 +8,15 @@ use SDKAbuAPI\Core\Exceptions\APIException;
 use SDKAbuAPI\Posts\Post;
 use SDKAbuAPI\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 interface PostsContract
 {
     /**
      * @api
+     *
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -19,25 +24,27 @@ interface PostsContract
         string $content,
         string $title,
         int $userID,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Post;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): Post;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -46,13 +53,14 @@ interface PostsContract
         ?string $content = null,
         ?string $title = null,
         ?int $userID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Post;
 
     /**
      * @api
      *
      * @param int $userID Filter posts by user ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return list<Post>
      *
@@ -60,25 +68,27 @@ interface PostsContract
      */
     public function list(
         ?int $userID = null,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): array;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed;
 
     /**
      * @api
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -86,6 +96,6 @@ interface PostsContract
         int $id,
         ?string $content = null,
         ?string $title = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Post;
 }

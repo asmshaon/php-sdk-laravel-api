@@ -17,6 +17,9 @@ use SDKAbuAPI\Posts\PostUpdateParams;
 use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\ServiceContracts\PostsRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 final class PostsRawService implements PostsRawContract
 {
     // @phpstan-ignore-next-line
@@ -33,6 +36,7 @@ final class PostsRawService implements PostsRawContract
      * @param array{
      *   content: string, title: string, userID: int
      * }|PostCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -40,7 +44,7 @@ final class PostsRawService implements PostsRawContract
      */
     public function create(
         array|PostCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = PostCreateParams::parseRequest(
             $params,
@@ -63,6 +67,7 @@ final class PostsRawService implements PostsRawContract
      * Get post by ID
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -70,7 +75,7 @@ final class PostsRawService implements PostsRawContract
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -90,6 +95,7 @@ final class PostsRawService implements PostsRawContract
      * @param array{
      *   content?: string, title?: string, userID?: int
      * }|PostUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -98,7 +104,7 @@ final class PostsRawService implements PostsRawContract
     public function update(
         int $id,
         array|PostUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = PostUpdateParams::parseRequest(
             $params,
@@ -121,6 +127,7 @@ final class PostsRawService implements PostsRawContract
      * Get all posts
      *
      * @param array{userID?: int}|PostListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<list<Post>>
      *
@@ -128,7 +135,7 @@ final class PostsRawService implements PostsRawContract
      */
     public function list(
         array|PostListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = PostListParams::parseRequest(
             $params,
@@ -151,6 +158,7 @@ final class PostsRawService implements PostsRawContract
      * Delete post
      *
      * @param int $id Post ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -158,7 +166,7 @@ final class PostsRawService implements PostsRawContract
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -176,6 +184,7 @@ final class PostsRawService implements PostsRawContract
      *
      * @param int $id Post ID
      * @param array{content?: string, title?: string}|PostPartialUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Post>
      *
@@ -184,7 +193,7 @@ final class PostsRawService implements PostsRawContract
     public function partialUpdate(
         int $id,
         array|PostPartialUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = PostPartialUpdateParams::parseRequest(
             $params,

@@ -8,10 +8,15 @@ use SDKAbuAPI\Core\Exceptions\APIException;
 use SDKAbuAPI\RequestOptions;
 use SDKAbuAPI\Users\User;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 interface UsersContract
 {
     /**
      * @api
+     *
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -19,25 +24,27 @@ interface UsersContract
         string $email,
         string $name,
         string $password,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): User;
 
     /**
      * @api
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): User;
 
     /**
      * @api
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -46,34 +53,40 @@ interface UsersContract
         ?string $email = null,
         ?string $name = null,
         ?string $password = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): User;
 
     /**
      * @api
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return list<User>
      *
      * @throws APIException
      */
-    public function list(?RequestOptions $requestOptions = null): array;
+    public function list(
+        RequestOptions|array|null $requestOptions = null
+    ): array;
 
     /**
      * @api
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed;
 
     /**
      * @api
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -81,6 +94,6 @@ interface UsersContract
         int $id,
         ?string $email = null,
         ?string $name = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): User;
 }

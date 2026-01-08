@@ -12,8 +12,8 @@ use SDKAbuAPI\Services\PostsService;
 use SDKAbuAPI\Services\UsersService;
 
 /**
- * @phpstan-import-type NormalizedRequest from \SDKAbuAPI\Core\BaseClient
  * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ * @phpstan-import-type NormalizedRequest from \SDKAbuAPI\Core\BaseClient
  */
 class Client extends BaseClient
 {

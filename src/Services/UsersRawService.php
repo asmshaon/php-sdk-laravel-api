@@ -15,6 +15,9 @@ use SDKAbuAPI\Users\UserCreateParams;
 use SDKAbuAPI\Users\UserPartialUpdateParams;
 use SDKAbuAPI\Users\UserUpdateParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
+ */
 final class UsersRawService implements UsersRawContract
 {
     // @phpstan-ignore-next-line
@@ -31,6 +34,7 @@ final class UsersRawService implements UsersRawContract
      * @param array{
      *   email: string, name: string, password: string
      * }|UserCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -38,7 +42,7 @@ final class UsersRawService implements UsersRawContract
      */
     public function create(
         array|UserCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = UserCreateParams::parseRequest(
             $params,
@@ -61,6 +65,7 @@ final class UsersRawService implements UsersRawContract
      * Get user by ID
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -68,7 +73,7 @@ final class UsersRawService implements UsersRawContract
      */
     public function retrieve(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -88,6 +93,7 @@ final class UsersRawService implements UsersRawContract
      * @param array{
      *   email?: string, name?: string, password?: string
      * }|UserUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -96,7 +102,7 @@ final class UsersRawService implements UsersRawContract
     public function update(
         int $id,
         array|UserUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = UserUpdateParams::parseRequest(
             $params,
@@ -118,12 +124,15 @@ final class UsersRawService implements UsersRawContract
      *
      * Get all users
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return BaseResponse<list<User>>
      *
      * @throws APIException
      */
-    public function list(?RequestOptions $requestOptions = null): BaseResponse
-    {
+    public function list(
+        RequestOptions|array|null $requestOptions = null
+    ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
@@ -139,6 +148,7 @@ final class UsersRawService implements UsersRawContract
      * Delete user
      *
      * @param int $id User ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -146,7 +156,7 @@ final class UsersRawService implements UsersRawContract
      */
     public function delete(
         int $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -164,6 +174,7 @@ final class UsersRawService implements UsersRawContract
      *
      * @param int $id User ID
      * @param array{email?: string, name?: string}|UserPartialUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<User>
      *
@@ -172,7 +183,7 @@ final class UsersRawService implements UsersRawContract
     public function partialUpdate(
         int $id,
         array|UserPartialUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = UserPartialUpdateParams::parseRequest(
             $params,
