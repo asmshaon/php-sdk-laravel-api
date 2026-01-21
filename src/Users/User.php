@@ -4,46 +4,43 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Users;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
+use SDKAbuAPI\Core\Attributes\Required;
 use SDKAbuAPI\Core\Concerns\SdkModel;
-use SDKAbuAPI\Core\Concerns\SdkResponse;
 use SDKAbuAPI\Core\Contracts\BaseModel;
-use SDKAbuAPI\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type UserShape = array{
  *   id: int,
  *   email: string,
  *   name: string,
- *   created_at?: \DateTimeInterface|null,
- *   email_verified_at?: \DateTimeInterface|null,
- *   updated_at?: \DateTimeInterface|null,
+ *   createdAt?: \DateTimeInterface|null,
+ *   emailVerifiedAt?: \DateTimeInterface|null,
+ *   updatedAt?: \DateTimeInterface|null,
  * }
  */
-final class User implements BaseModel, ResponseConverter
+final class User implements BaseModel
 {
     /** @use SdkModel<UserShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public int $id;
 
-    #[Api]
+    #[Required]
     public string $email;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api(optional: true)]
-    public ?\DateTimeInterface $created_at;
+    #[Optional('created_at')]
+    public ?\DateTimeInterface $createdAt;
 
-    #[Api(nullable: true, optional: true)]
-    public ?\DateTimeInterface $email_verified_at;
+    #[Optional('email_verified_at', nullable: true)]
+    public ?\DateTimeInterface $emailVerifiedAt;
 
-    #[Api(optional: true)]
-    public ?\DateTimeInterface $updated_at;
+    #[Optional('updated_at')]
+    public ?\DateTimeInterface $updatedAt;
 
     /**
      * `new User()` is missing required properties by the API.
@@ -73,69 +70,69 @@ final class User implements BaseModel, ResponseConverter
         int $id,
         string $email,
         string $name,
-        ?\DateTimeInterface $created_at = null,
-        ?\DateTimeInterface $email_verified_at = null,
-        ?\DateTimeInterface $updated_at = null,
+        ?\DateTimeInterface $createdAt = null,
+        ?\DateTimeInterface $emailVerifiedAt = null,
+        ?\DateTimeInterface $updatedAt = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj->id = $id;
-        $obj->email = $email;
-        $obj->name = $name;
+        $self['id'] = $id;
+        $self['email'] = $email;
+        $self['name'] = $name;
 
-        null !== $created_at && $obj->created_at = $created_at;
-        null !== $email_verified_at && $obj->email_verified_at = $email_verified_at;
-        null !== $updated_at && $obj->updated_at = $updated_at;
+        null !== $createdAt && $self['createdAt'] = $createdAt;
+        null !== $emailVerifiedAt && $self['emailVerifiedAt'] = $emailVerifiedAt;
+        null !== $updatedAt && $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(int $id): self
     {
-        $obj = clone $this;
-        $obj->id = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withEmail(string $email): self
     {
-        $obj = clone $this;
-        $obj->email = $email;
+        $self = clone $this;
+        $self['email'] = $email;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj->name = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withEmailVerifiedAt(
         ?\DateTimeInterface $emailVerifiedAt
     ): self {
-        $obj = clone $this;
-        $obj->email_verified_at = $emailVerifiedAt;
+        $self = clone $this;
+        $self['emailVerifiedAt'] = $emailVerifiedAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $obj = clone $this;
-        $obj->updated_at = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 }

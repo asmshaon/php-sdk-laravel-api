@@ -4,53 +4,50 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Posts;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
+use SDKAbuAPI\Core\Attributes\Required;
 use SDKAbuAPI\Core\Concerns\SdkModel;
-use SDKAbuAPI\Core\Concerns\SdkResponse;
 use SDKAbuAPI\Core\Contracts\BaseModel;
-use SDKAbuAPI\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type PostShape = array{
  *   id: int,
  *   content: string,
  *   title: string,
- *   user_id: int,
- *   created_at?: \DateTimeInterface|null,
- *   updated_at?: \DateTimeInterface|null,
+ *   userID: int,
+ *   createdAt?: \DateTimeInterface|null,
+ *   updatedAt?: \DateTimeInterface|null,
  * }
  */
-final class Post implements BaseModel, ResponseConverter
+final class Post implements BaseModel
 {
     /** @use SdkModel<PostShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public int $id;
 
-    #[Api]
+    #[Required]
     public string $content;
 
-    #[Api]
+    #[Required]
     public string $title;
 
-    #[Api]
-    public int $user_id;
+    #[Required('user_id')]
+    public int $userID;
 
-    #[Api(optional: true)]
-    public ?\DateTimeInterface $created_at;
+    #[Optional('created_at')]
+    public ?\DateTimeInterface $createdAt;
 
-    #[Api(optional: true)]
-    public ?\DateTimeInterface $updated_at;
+    #[Optional('updated_at')]
+    public ?\DateTimeInterface $updatedAt;
 
     /**
      * `new Post()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Post::with(id: ..., content: ..., title: ..., user_id: ...)
+     * Post::with(id: ..., content: ..., title: ..., userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -73,68 +70,68 @@ final class Post implements BaseModel, ResponseConverter
         int $id,
         string $content,
         string $title,
-        int $user_id,
-        ?\DateTimeInterface $created_at = null,
-        ?\DateTimeInterface $updated_at = null,
+        int $userID,
+        ?\DateTimeInterface $createdAt = null,
+        ?\DateTimeInterface $updatedAt = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj->id = $id;
-        $obj->content = $content;
-        $obj->title = $title;
-        $obj->user_id = $user_id;
+        $self['id'] = $id;
+        $self['content'] = $content;
+        $self['title'] = $title;
+        $self['userID'] = $userID;
 
-        null !== $created_at && $obj->created_at = $created_at;
-        null !== $updated_at && $obj->updated_at = $updated_at;
+        null !== $createdAt && $self['createdAt'] = $createdAt;
+        null !== $updatedAt && $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(int $id): self
     {
-        $obj = clone $this;
-        $obj->id = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withContent(string $content): self
     {
-        $obj = clone $this;
-        $obj->content = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withTitle(string $title): self
     {
-        $obj = clone $this;
-        $obj->title = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(int $userID): self
     {
-        $obj = clone $this;
-        $obj->user_id = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $obj = clone $this;
-        $obj->updated_at = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 }

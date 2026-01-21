@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Posts;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Concerns\SdkParams;
 use SDKAbuAPI\Core\Contracts\BaseModel;
@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\PostsService::update()
  *
  * @phpstan-type PostUpdateParamsShape = array{
- *   content?: string, title?: string, user_id?: int
+ *   content?: string|null, title?: string|null, userID?: int|null
  * }
  */
 final class PostUpdateParams implements BaseModel
@@ -24,14 +24,14 @@ final class PostUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $content;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $title;
 
-    #[Api(optional: true)]
-    public ?int $user_id;
+    #[Optional('user_id')]
+    public ?int $userID;
 
     public function __construct()
     {
@@ -46,38 +46,38 @@ final class PostUpdateParams implements BaseModel
     public static function with(
         ?string $content = null,
         ?string $title = null,
-        ?int $user_id = null
+        ?int $userID = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $content && $obj->content = $content;
-        null !== $title && $obj->title = $title;
-        null !== $user_id && $obj->user_id = $user_id;
+        null !== $content && $self['content'] = $content;
+        null !== $title && $self['title'] = $title;
+        null !== $userID && $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     public function withContent(string $content): self
     {
-        $obj = clone $this;
-        $obj->content = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withTitle(string $title): self
     {
-        $obj = clone $this;
-        $obj->title = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(int $userID): self
     {
-        $obj = clone $this;
-        $obj->user_id = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 }

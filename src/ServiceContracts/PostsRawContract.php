@@ -4,96 +4,111 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\ServiceContracts;
 
+use SDKAbuAPI\Core\Contracts\BaseResponse;
 use SDKAbuAPI\Core\Exceptions\APIException;
+use SDKAbuAPI\Posts\Post;
+use SDKAbuAPI\Posts\PostCreateParams;
+use SDKAbuAPI\Posts\PostListParams;
+use SDKAbuAPI\Posts\PostPartialUpdateParams;
+use SDKAbuAPI\Posts\PostUpdateParams;
 use SDKAbuAPI\RequestOptions;
-use SDKAbuAPI\Users\User;
 
 /**
  * @phpstan-import-type RequestOpts from \SDKAbuAPI\RequestOptions
  */
-interface UsersContract
+interface PostsRawContract
 {
     /**
      * @api
      *
+     * @param array<string,mixed>|PostCreateParams $params
      * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<Post>
      *
      * @throws APIException
      */
     public function create(
-        string $email,
-        string $name,
-        string $password,
+        array|PostCreateParams $params,
         RequestOptions|array|null $requestOptions = null,
-    ): User;
+    ): BaseResponse;
 
     /**
      * @api
      *
-     * @param int $id User ID
+     * @param int $id Post ID
      * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<Post>
      *
      * @throws APIException
      */
     public function retrieve(
         int $id,
         RequestOptions|array|null $requestOptions = null
-    ): User;
+    ): BaseResponse;
 
     /**
      * @api
      *
-     * @param int $id User ID
+     * @param int $id Post ID
+     * @param array<string,mixed>|PostUpdateParams $params
      * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<Post>
      *
      * @throws APIException
      */
     public function update(
         int $id,
-        ?string $email = null,
-        ?string $name = null,
-        ?string $password = null,
+        array|PostUpdateParams $params,
         RequestOptions|array|null $requestOptions = null,
-    ): User;
+    ): BaseResponse;
 
     /**
      * @api
      *
+     * @param array<string,mixed>|PostListParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return list<User>
+     * @return BaseResponse<list<Post>>
      *
      * @throws APIException
      */
     public function list(
-        RequestOptions|array|null $requestOptions = null
-    ): array;
+        array|PostListParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
 
     /**
      * @api
      *
-     * @param int $id User ID
+     * @param int $id Post ID
      * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
      *
      * @throws APIException
      */
     public function delete(
         int $id,
         RequestOptions|array|null $requestOptions = null
-    ): mixed;
+    ): BaseResponse;
 
     /**
      * @api
      *
-     * @param int $id User ID
+     * @param int $id Post ID
+     * @param array<string,mixed>|PostPartialUpdateParams $params
      * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<Post>
      *
      * @throws APIException
      */
     public function partialUpdate(
         int $id,
-        ?string $email = null,
-        ?string $name = null,
+        array|PostPartialUpdateParams $params,
         RequestOptions|array|null $requestOptions = null,
-    ): User;
+    ): BaseResponse;
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SDKAbuAPI\Users;
 
-use SDKAbuAPI\Core\Attributes\Api;
+use SDKAbuAPI\Core\Attributes\Optional;
 use SDKAbuAPI\Core\Concerns\SdkModel;
 use SDKAbuAPI\Core\Concerns\SdkParams;
 use SDKAbuAPI\Core\Contracts\BaseModel;
@@ -15,7 +15,7 @@ use SDKAbuAPI\Core\Contracts\BaseModel;
  * @see SDKAbuAPI\Services\UsersService::update()
  *
  * @phpstan-type UserUpdateParamsShape = array{
- *   email?: string, name?: string, password?: string
+ *   email?: string|null, name?: string|null, password?: string|null
  * }
  */
 final class UserUpdateParams implements BaseModel
@@ -24,13 +24,13 @@ final class UserUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $email;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $name;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $password;
 
     public function __construct()
@@ -48,36 +48,36 @@ final class UserUpdateParams implements BaseModel
         ?string $name = null,
         ?string $password = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $email && $obj->email = $email;
-        null !== $name && $obj->name = $name;
-        null !== $password && $obj->password = $password;
+        null !== $email && $self['email'] = $email;
+        null !== $name && $self['name'] = $name;
+        null !== $password && $self['password'] = $password;
 
-        return $obj;
+        return $self;
     }
 
     public function withEmail(string $email): self
     {
-        $obj = clone $this;
-        $obj->email = $email;
+        $self = clone $this;
+        $self['email'] = $email;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj->name = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withPassword(string $password): self
     {
-        $obj = clone $this;
-        $obj->password = $password;
+        $self = clone $this;
+        $self['password'] = $password;
 
-        return $obj;
+        return $self;
     }
 }

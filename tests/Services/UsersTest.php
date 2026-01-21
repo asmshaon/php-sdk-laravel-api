@@ -6,6 +6,7 @@ use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use SDKAbuAPI\Client;
+use SDKAbuAPI\Users\User;
 use Tests\UnsupportedMockTests;
 
 /**
@@ -33,13 +34,14 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->create([
-            'email' => 'john@example.com',
-            'name' => 'John Doe',
-            'password' => 'password123',
-        ]);
+        $result = $this->client->users->create(
+            email: 'john@example.com',
+            name: 'John Doe',
+            password: 'password123'
+        );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(User::class, $result);
     }
 
     #[Test]
@@ -49,13 +51,14 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->create([
-            'email' => 'john@example.com',
-            'name' => 'John Doe',
-            'password' => 'password123',
-        ]);
+        $result = $this->client->users->create(
+            email: 'john@example.com',
+            name: 'John Doe',
+            password: 'password123'
+        );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(User::class, $result);
     }
 
     #[Test]
@@ -67,7 +70,8 @@ final class UsersTest extends TestCase
 
         $result = $this->client->users->retrieve(0);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(User::class, $result);
     }
 
     #[Test]
@@ -77,9 +81,10 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->update(0, []);
+        $result = $this->client->users->update(0);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(User::class, $result);
     }
 
     #[Test]
@@ -91,7 +96,8 @@ final class UsersTest extends TestCase
 
         $result = $this->client->users->list();
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertIsList($result);
     }
 
     #[Test]
@@ -103,7 +109,8 @@ final class UsersTest extends TestCase
 
         $result = $this->client->users->delete(0);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -113,8 +120,9 @@ final class UsersTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->partialUpdate(0, []);
+        $result = $this->client->users->partialUpdate(0);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(User::class, $result);
     }
 }
